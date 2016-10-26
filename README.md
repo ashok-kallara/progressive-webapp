@@ -1,11 +1,6 @@
-# Zuperkülblog (Progressive)
+# PWA POC
 
-A Progressive Web App built with Polymer.
-
-## How it was built
-
-* [Chrome DevSummit 2015 video](https://www.youtube.com/watch?v=g7f1Az5fxgU)
-* [slides](https://speakerdeck.com/robdodson/building-progressive-web-apps-with-polymer)
+A Progressive Web App built with Polymer base on https://github.com/PolymerLabs/zuperkulblog-progressive
 
 ## Setup
 
@@ -14,7 +9,7 @@ After downloading, open the App Engine Launcher and let it setup symlinks (it sh
 
 ```
 git clone https://github.com/PolymerLabs/zuperkulblog-progressive
-cd zuperkulblog-progressive
+cd progressive-webapp
 npm install && bower install
 gulp
 dev_appserver.py .
