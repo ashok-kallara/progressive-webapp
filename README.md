@@ -2,6 +2,10 @@
 
 A Progressive Web App built with Polymer base on https://github.com/PolymerLabs/zuperkulblog-progressive. Changes being:
 * Removed dependency on Google Cloud SDK
+* Added support for
+  * push using Google Firebase
+  * Camera support
+  * Vibrate
 * Enabled TLS as it's needed for hardware APIs
 * Added Manh splash screen etc.
 
@@ -18,5 +22,5 @@ A Progressive Web App built with Polymer base on https://github.com/PolymerLabs/
 cd progressive-webapp
 npm install && bower install
 gulp
-http-server ./dist -S -C cert.pem -p <PORT>
+http-server ./dist/static -S -C cert.pem -p <PORT>
 ```
