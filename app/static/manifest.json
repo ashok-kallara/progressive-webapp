@@ -1,6 +1,6 @@
 {
-  "name": "Zuperkülblog",
-  "short_name": "Zuperkülblog",
+  "name": "PWA POC",
+  "short_name": "PWAPOC",
   "icons": [{
         "src": "images/touch/icon-128x128.png",
         "sizes": "128x128",
