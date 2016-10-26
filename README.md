@@ -1,6 +1,9 @@
 # PWA POC
 
-A Progressive Web App built with Polymer base on https://github.com/PolymerLabs/zuperkulblog-progressive
+A Progressive Web App built with Polymer base on https://github.com/PolymerLabs/zuperkulblog-progressive. Changes being:
+* Removed dependency on Google Cloud SDK
+* Enabled TLS as it's needed for hardware APIs
+* Added Manh splash screen etc.
 
 ## Setup
 
@@ -9,8 +12,9 @@ A Progressive Web App built with Polymer base on https://github.com/PolymerLabs/
 * Install bower with npm -- ```npm install -g bower```
 * Install node http-server with npm -- ```npm install -g http-server```
 
+## Running it
+
 ```
-git clone https://github.com/PolymerLabs/zuperkulblog-progressive
 cd progressive-webapp
 npm install && bower install
 gulp
