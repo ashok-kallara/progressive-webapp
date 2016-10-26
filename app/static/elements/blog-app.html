@@ -15,6 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
 <link rel="import" href="../bower_components/paper-toggle-button/paper-toggle-button.html">
@@ -162,6 +163,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
     </style>
+    <style is="custom-style">
+      paper-button.custom {
+        --paper-button-ink-color: var(--paper-pink-a200);
+        /* These could also be individually defined for each of the
+          specific css classes, but we'll just do it once as an example */
+        --paper-button-flat-keyboard-focus: {
+          background-color: var(--paper-pink-a200);
+          color: white !important;
+        };
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-pink-a200) !important;
+          color: white !important;
+        };
+      }
+      paper-button.custom:hover {
+        background-color: var(--paper-indigo-100);
+      }
+      paper-button.pink {
+        color: var(--paper-pink-a200);
+
+      }
+      paper-button.indigo {
+        background-color: var(--paper-indigo-500);
+        color: white;
+      }
+      paper-button.green {
+        background-color: var(--paper-green-500);
+        color: white;
+      }
+      paper-button.green[active] {
+        background-color: var(--paper-red-500);
+      }
+      paper-button.disabled {
+        color: white;
+      }
+    </style>
 
     <app-drawer-layout id="drawerLayout" drawer-width="288px" responsive-width="1280px" on-iron-resize="_positionNavTitle">
 
@@ -175,23 +212,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <!-- bottom toolbar -->
           <app-toolbar>
-            <div id="navTitle" class="title">ZUPERK&Uuml;LBLOG</div>
+            <div id="navTitle" class="title">Menu</div>
           </app-toolbar>
 
         </app-header>
 
         <!-- nav menu -->
         <iron-selector class="nav-menu" selected="[[category]]" attr-for-selected="name" activate-event="click">
-          <a name="art" href="/art/list">Art</a>
-          <a name="film" href="/film/list">Film</a>
-          <a name="photography" href="/photography/list">Photography</a>
-          <a name="design" href="/design/list">Design</a>
+          <!--<a name="art" href="/art/list">Art</a>-->
+          <a name="Home" href="/home/list">Home</a>
+          <!--<a name="photography" href="/photography/list">Photography</a>->
+          <!-- <a name="design" href="/design/list">Design</a>
           <a name="topten" href="/topten/list">Top Ten</a>
-          <a name="aday" href="/aday/list">A Day in the Life</a>
+          <a name="aday" href="/aday/list">A Day in the Life</a> -->
         </iron-selector>
 
         <div class="push-opt-in">
-          <span class="flex" id="toggle-label">Notify Me of <br>New Content</span>
+          <span class="flex" id="toggle-label">Turn ON push</span>
           <paper-toggle-button id="toggle" aria-labelledby="toggle-label"
               toggles checked="{{pushEnabled}}">
           </paper-toggle-button>
@@ -216,16 +253,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <!-- bottom toolbar -->
           <app-toolbar class="main-title-toolbar">
-            <div id="mainTitle" class="title">ZUPERK&Uuml;LBLOG</div>
+            <div id="mainTitle" class="title">Progressive POC</div>
           </app-toolbar>
 
         </app-header>
 
         <!-- list/detail pages -->
         <iron-pages selected="[[page]]" attr-for-selected="name">
-
           <section name="list">
+            <paper-button raised class="indigo" on-tap="vibrateHandler">Vibrate</paper-button>
+            <paper-button raised class="indigo" on-tap="cameraHandler">Camera</paper-button>
             <!-- 2-columns grid -->
+            <section id="app1" hidden>
+                <p><video id="monitor1" autoplay></video> <canvas id="photo1"></canvas>
+            </section>
             <two-columns-grid column-width="396" gutter="4">
               <template is="dom-repeat" items="[[articles]]">
                 <a is="article-headline" href="/[[category]]/detail/[[item.slug]]" article="[[item]]"></a>
@@ -270,6 +311,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          * The selected page (either `list` or `detail`).
          */
         page: String,
+
+        cameraOn: {
+          reflectToAttribute: true,
+          type: Boolean,
+          value: false
+        },
 
         /**
          * Articles data.
@@ -380,9 +427,41 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var style = this.$.navTitle.style;
         style.top = this.$.mainTitle.offsetTop + 'px';
         style.left = this.$.mainTitle.offsetLeft + 'px';
+      },
+
+
+      vibrateHandler: function () {
+          navigator.vibrate([300, 100, 300, 100, 300]);
+      },
+
+      cameraHandler: function () {
+        //canvas.getContext('2d').drawImage(video, 0, 0);
+        var me = this;
+        if(me.cameraOn){
+          document.getElementById('app1').hidden = true;
+        }else {
+          var video = document.getElementById('monitor1');
+          var canvas = document.getElementById('photo1');
+          navigator.mediaDevices.getUserMedia({
+              video: true
+          }).then(function (stream) {
+              video.srcObject = stream;
+              video.onloadedmetadata = function () {
+                  canvas.width = video.videoWidth;
+                  canvas.height = video.videoHeight;
+                  document.getElementById('app1').hidden = false;
+              };
+          }).catch(function (reason) {
+              document.getElementById('errorMessage').textContent = 'No camera available.';
+          });
+        }
+        me.cameraOn = !me.cameraOn
       }
 
+
     });
+
+
 
   </script>
 
