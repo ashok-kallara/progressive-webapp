@@ -4,13 +4,15 @@ A Progressive Web App built with Polymer base on https://github.com/PolymerLabs/
 
 ## Setup
 
-This app requires the [Python App Engine SDK](https://cloud.google.com/appengine/downloads?hl=en).
-After downloading, open the App Engine Launcher and let it setup symlinks (it should prompt you).
+* Install node and npm
+* Install gulp with npm --```npm install -g gulp```
+* Install bower with npm -- ```npm install -g bower```
+* Install node http-server with npm -- ```npm install -g http-server```
 
 ```
 git clone https://github.com/PolymerLabs/zuperkulblog-progressive
 cd progressive-webapp
 npm install && bower install
 gulp
-dev_appserver.py .
+http-server ./dist -S -C cert.pem -p <PORT>
 ```

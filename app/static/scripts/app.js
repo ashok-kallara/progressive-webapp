@@ -136,7 +136,7 @@ page('/:category/detail/:slug', function(ctx) {
 
 page('*', function() {
   console.log('Can\'t find: ' + window.location.href  + '. Redirected you to Home Page');
-  page.redirect('/art/list');
+  page.redirect('/home/list');
 });
 
 page();
