@@ -7,7 +7,6 @@ A Progressive Web App built with Polymer base on https://github.com/PolymerLabs/
   * Camera support
   * Vibrate
 * Enabled TLS as it's needed for hardware APIs
-* Added Manh splash screen etc.
 
 ## Setup
 
